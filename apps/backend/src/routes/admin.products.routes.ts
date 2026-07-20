@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { Router } from 'express';
+import type { Request } from 'express';
 import multer from 'multer';
 import { z } from 'zod';
 import { env } from '../config/env.js';
@@ -47,16 +48,14 @@ const productSchema = z.object({
   tag: z.string().default(''),
   color: z.string().default('emerald'),
   description: z.string().min(10),
-  features: z
-    .union([z.array(z.string()), z.string()])
-    .transform((value) =>
-      Array.isArray(value)
-        ? value
-        : value
-            .split('\n')
-            .map((line) => line.trim())
-            .filter(Boolean),
-    ),
+  features: z.union([z.array(z.string()), z.string()]).transform((value) =>
+    Array.isArray(value)
+      ? value
+      : value
+          .split('\n')
+          .map((line) => line.trim())
+          .filter(Boolean),
+  ),
   published: z
     .union([z.boolean(), z.string()])
     .transform((value) => value === true || value === 'true' || value === '1')
@@ -91,34 +90,38 @@ adminProductsRouter.post('/', upload.single('file'), async (request, response) =
   return ok(response, product, 'Produit cree', 201);
 });
 
-adminProductsRouter.put('/:id', upload.single('file'), async (request, response) => {
-  const parsed = productSchema.partial().safeParse(request.body);
-  if (!parsed.success) {
-    return fail(response, 400, 'Donnees invalides', parsed.error.issues);
-  }
+adminProductsRouter.put(
+  '/:id',
+  upload.single('file'),
+  async (request: Request<{ id: string }>, response) => {
+    const parsed = productSchema.partial().safeParse(request.body);
+    if (!parsed.success) {
+      return fail(response, 400, 'Donnees invalides', parsed.error.issues);
+    }
 
-  const current = await prisma.product.findUnique({ where: { id: request.params.id } });
-  if (!current) {
-    return fail(response, 404, 'Produit introuvable');
-  }
+    const current = await prisma.product.findUnique({ where: { id: request.params.id } });
+    if (!current) {
+      return fail(response, 404, 'Produit introuvable');
+    }
 
-  const product = await prisma.product.update({
-    where: { id: current.id },
-    data: {
-      ...parsed.data,
-      ...(request.file
-        ? { fileName: request.file.originalname, filePath: request.file.filename }
-        : {}),
-    },
-  });
+    const product = await prisma.product.update({
+      where: { id: current.id },
+      data: {
+        ...parsed.data,
+        ...(request.file
+          ? { fileName: request.file.originalname, filePath: request.file.filename }
+          : {}),
+      },
+    });
 
-  // Si un nouveau fichier remplace l'ancien, on supprime l'ancien du disque.
-  if (request.file && current.filePath && current.filePath !== product.filePath) {
-    fs.rm(path.join(uploadRoot, current.filePath), { force: true }, () => undefined);
-  }
+    // Si un nouveau fichier remplace l'ancien, on supprime l'ancien du disque.
+    if (request.file && current.filePath && current.filePath !== product.filePath) {
+      fs.rm(path.join(uploadRoot, current.filePath), { force: true }, () => undefined);
+    }
 
-  return ok(response, product, 'Produit mis a jour');
-});
+    return ok(response, product, 'Produit mis a jour');
+  },
+);
 
 adminProductsRouter.delete('/:id', async (request, response) => {
   const current = await prisma.product.findUnique({ where: { id: request.params.id } });

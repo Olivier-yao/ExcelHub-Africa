@@ -10,6 +10,11 @@ export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
+    rules: {
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    },
+  },
+  {
     files: ['apps/frontend/**/*.{ts,tsx}'],
     languageOptions: { globals: globals.browser },
   },

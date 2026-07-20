@@ -18,14 +18,14 @@ ExcelHub Africa est une marketplace en ligne qui vend des fichiers Excel de gest
 
 ### 1.3 Cibles
 
-| Persona | Description | Besoin principal |
-| --- | --- | --- |
-| Gérant de boutique | Commerce de détail, peu à l'aise avec l'informatique | Outil simple, en français, prêt à l'emploi |
-| Agent Mobile Money | Gère des flux multi-opérateurs et commissions | Suivi de caisse fiable |
-| Pharmacien | Stock avec lots et dates d'expiration | Alertes automatiques |
-| Directeur d'école | Élèves, paiements, notes | Suivi administratif centralisé |
-| Restaurateur | Coûts matières et ventes journalières | Marge visible |
-| **Administrateur (Fabien)** | Crée les fichiers Excel et gère la plateforme | Publier un nouveau produit en quelques clics |
+| Persona                     | Description                                          | Besoin principal                             |
+| --------------------------- | ---------------------------------------------------- | -------------------------------------------- |
+| Gérant de boutique          | Commerce de détail, peu à l'aise avec l'informatique | Outil simple, en français, prêt à l'emploi   |
+| Agent Mobile Money          | Gère des flux multi-opérateurs et commissions        | Suivi de caisse fiable                       |
+| Pharmacien                  | Stock avec lots et dates d'expiration                | Alertes automatiques                         |
+| Directeur d'école           | Élèves, paiements, notes                             | Suivi administratif centralisé               |
+| Restaurateur                | Coûts matières et ventes journalières                | Marge visible                                |
+| **Administrateur (Fabien)** | Crée les fichiers Excel et gère la plateforme        | Publier un nouveau produit en quelques clics |
 
 ### 1.4 Périmètre
 
@@ -52,20 +52,20 @@ Le dépôt contient déjà :
 
 ### 3.1 Stack
 
-| Couche | Technologie | Justification |
-| --- | --- | --- |
-| Frontend | React 19 + Vite 7 + TypeScript | Déjà en place, moderne |
-| Style | CSS custom (`styles/index.css`) | **Décision** : retirer Tailwind (installé mais inutilisé) OU migrer entièrement ; ne pas garder les deux |
-| État serveur | TanStack React Query 5 | Cache, invalidation, retry |
-| Formulaires | react-hook-form + @hookform/resolvers + Zod | Déjà installés, à brancher |
-| Backend | Express 5 + TypeScript (ESM) | Déjà en place |
-| ORM / BDD | Prisma 6 + PostgreSQL 16 | Déjà en place |
-| Auth | JWT access (15 min) + refresh (7 j), bcrypt | Déjà en place côté API |
-| Upload | multer (disque local en dev) → stockage objet en prod | Voir 3.3 |
-| Paiement | Agrégateur Mobile Money : **CinetPay** (recommandé pour la Côte d'Ivoire) ou Paystack | Couvre Orange, MTN, Moov, Wave + cartes |
-| E-mails | Resend ou Brevo (ex-Sendinblue) | Simple, offre gratuite suffisante |
-| Tests | Vitest + Supertest (API) + Testing Library (front) | À installer |
-| CI | GitHub Actions | Lint + tests + build sur chaque PR |
+| Couche       | Technologie                                                                           | Justification                                                                                            |
+| ------------ | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Frontend     | React 19 + Vite 7 + TypeScript                                                        | Déjà en place, moderne                                                                                   |
+| Style        | CSS custom (`styles/index.css`)                                                       | **Décision** : retirer Tailwind (installé mais inutilisé) OU migrer entièrement ; ne pas garder les deux |
+| État serveur | TanStack React Query 5                                                                | Cache, invalidation, retry                                                                               |
+| Formulaires  | react-hook-form + @hookform/resolvers + Zod                                           | Déjà installés, à brancher                                                                               |
+| Backend      | Express 5 + TypeScript (ESM)                                                          | Déjà en place                                                                                            |
+| ORM / BDD    | Prisma 6 + PostgreSQL 16                                                              | Déjà en place                                                                                            |
+| Auth         | JWT access (15 min) + refresh (7 j), bcrypt                                           | Déjà en place côté API                                                                                   |
+| Upload       | multer (disque local en dev) → stockage objet en prod                                 | Voir 3.3                                                                                                 |
+| Paiement     | Agrégateur Mobile Money : **CinetPay** (recommandé pour la Côte d'Ivoire) ou Paystack | Couvre Orange, MTN, Moov, Wave + cartes                                                                  |
+| E-mails      | Resend ou Brevo (ex-Sendinblue)                                                       | Simple, offre gratuite suffisante                                                                        |
+| Tests        | Vitest + Supertest (API) + Testing Library (front)                                    | À installer                                                                                              |
+| CI           | GitHub Actions                                                                        | Lint + tests + build sur chaque PR                                                                       |
 
 ### 3.2 Arborescence cible
 
@@ -100,13 +100,13 @@ apps/
 
 Modèles existants dans `schema.prisma` (à faire évoluer si besoin) :
 
-| Modèle | Champs clés | Rôle |
-| --- | --- | --- |
-| `User` | email unique, passwordHash, name, role (`ADMIN`/`CUSTOMER`) | Comptes |
-| `Product` | slug unique, name, category, priceFcfa (Int), tag, color, description, features (String[]), fileName, filePath, published (Bool) | Catalogue |
-| `Order` | userId, status (`PENDING`/`PAID`/`CANCELLED`), totalFcfa, paymentRef | Commandes |
-| `OrderItem` | orderId, productId, priceFcfa (prix figé à l'achat) | Lignes de commande |
-| `DownloadToken` | token (uuid), orderItemId, expiresAt, usedAt | Livraison sécurisée |
+| Modèle          | Champs clés                                                                                                                      | Rôle                |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| `User`          | email unique, passwordHash, name, role (`ADMIN`/`CUSTOMER`)                                                                      | Comptes             |
+| `Product`       | slug unique, name, category, priceFcfa (Int), tag, color, description, features (String[]), fileName, filePath, published (Bool) | Catalogue           |
+| `Order`         | userId, status (`PENDING`/`PAID`/`CANCELLED`), totalFcfa, paymentRef                                                             | Commandes           |
+| `OrderItem`     | orderId, productId, priceFcfa (prix figé à l'achat)                                                                              | Lignes de commande  |
+| `DownloadToken` | token (uuid), orderItemId, expiresAt, usedAt                                                                                     | Livraison sécurisée |
 
 Évolutions prévues en phase paiement : ajouter `PaymentEvent` (journal des webhooks reçus, idempotence) et un champ `downloadCount` sur `OrderItem` (limite de téléchargements, ex. 5).
 
@@ -114,13 +114,13 @@ Modèles existants dans `schema.prisma` (à faire évoluer si besoin) :
 
 ## 5. Fonctionnalités détaillées
 
-### F1 — Catalogue public *(fait, à raffiner)*
+### F1 — Catalogue public _(fait, à raffiner)_
 
 - Liste des produits publiés, filtrable par catégorie.
 - Les catégories doivent devenir dynamiques (dérivées des produits retournés par l'API, plus la valeur « Tous ») au lieu d'une liste codée en dur.
 - États de chargement et d'erreur visibles (skeleton ou spinner).
 
-### F2 — Fiche produit *(fait, à raffiner)*
+### F2 — Fiche produit _(fait, à raffiner)_
 
 - URL `/produits/:slug`, données via API, 404 si slug inconnu ou non publié.
 - Ajouter des captures d'écran réelles du fichier Excel (champ `images` à prévoir sur `Product` en V2 ; l'admin uploadera 1 à 3 images PNG/JPG par produit).
@@ -183,14 +183,14 @@ L'API admin est **déjà développée** (CRUD produits + upload sécurisé `.xls
 
 ### 6.2 Écrans du back-office
 
-| Écran | Route | Contenu |
-| --- | --- | --- |
-| Connexion admin | `/connexion` (commune) | Redirection vers `/admin` si rôle ADMIN |
-| Tableau de bord | `/admin` | Chiffre d'affaires du mois (FCFA), nombre de ventes, derniers achats, produits les plus vendus |
-| Liste produits | `/admin/produits` | Tableau : nom, catégorie, prix, statut Publié/Brouillon (toggle), fichier présent oui/non, actions Modifier/Supprimer |
-| Nouveau / Modifier produit | `/admin/produits/nouveau`, `/admin/produits/:id` | Formulaire complet (voir 6.3) |
-| Commandes | `/admin/commandes` | Liste filtrable par statut, détail d'une commande, régénération manuelle d'un lien de téléchargement |
-| Clients | `/admin/clients` | Liste, recherche par e-mail, historique d'achats |
+| Écran                      | Route                                            | Contenu                                                                                                               |
+| -------------------------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| Connexion admin            | `/connexion` (commune)                           | Redirection vers `/admin` si rôle ADMIN                                                                               |
+| Tableau de bord            | `/admin`                                         | Chiffre d'affaires du mois (FCFA), nombre de ventes, derniers achats, produits les plus vendus                        |
+| Liste produits             | `/admin/produits`                                | Tableau : nom, catégorie, prix, statut Publié/Brouillon (toggle), fichier présent oui/non, actions Modifier/Supprimer |
+| Nouveau / Modifier produit | `/admin/produits/nouveau`, `/admin/produits/:id` | Formulaire complet (voir 6.3)                                                                                         |
+| Commandes                  | `/admin/commandes`                               | Liste filtrable par statut, détail d'une commande, régénération manuelle d'un lien de téléchargement                  |
+| Clients                    | `/admin/clients`                                 | Liste, recherche par e-mail, historique d'achats                                                                      |
 
 ### 6.3 Formulaire produit (cœur du besoin)
 
@@ -220,13 +220,13 @@ Règles : impossible de publier un produit sans fichier attaché ; le remplaceme
 
 ## 8. Déploiement (proposition)
 
-| Composant | Service | Remarque |
-| --- | --- | --- |
-| Frontend | Vercel ou Netlify | Build Vite statique |
-| API | Railway ou Render | Node 20, variables d'env |
-| PostgreSQL | Neon ou Railway | Sauvegardes automatiques |
-| Fichiers | Cloudflare R2 | via `STORAGE_DRIVER=s3` |
-| Domaine | ex. `excelhub.africa` ou `.ci` | HTTPS partout |
+| Composant  | Service                        | Remarque                 |
+| ---------- | ------------------------------ | ------------------------ |
+| Frontend   | Vercel ou Netlify              | Build Vite statique      |
+| API        | Railway ou Render              | Node 20, variables d'env |
+| PostgreSQL | Neon ou Railway                | Sauvegardes automatiques |
+| Fichiers   | Cloudflare R2                  | via `STORAGE_DRIVER=s3`  |
+| Domaine    | ex. `excelhub.africa` ou `.ci` | HTTPS partout            |
 
 CI GitHub Actions : sur chaque push/PR → install, lint, format:check, tests, build. Déploiement automatique de `main` après succès.
 
@@ -270,17 +270,20 @@ helmet + rate limiting, tests complets, CI GitHub Actions, stockage R2, pages l�
 # ExcelHub Africa — Instructions projet
 
 ## Contexte
+
 Marketplace de fichiers Excel de gestion pour PME africaines (FCFA, Mobile Money).
 Monorepo npm workspaces : apps/frontend (React 19 + Vite) et apps/backend
 (Express 5 + Prisma + PostgreSQL). Tout le produit est en français.
 
 ## Commandes
-- npm run dev            # front (5173) + API (4000)
+
+- npm run dev # front (5173) + API (4000)
 - npm run lint / npm run format:check / npm run build
 - npm run prisma:migrate --workspace=@excelhub/backend -- --name <nom>
 - npm run db:seed --workspace=@excelhub/backend
 
 ## Règles
+
 - TypeScript strict, ESM, imports relatifs avec extension .js côté backend.
 - Toute entrée API est validée avec Zod ; réponses au format
   { success, data, message, errors }.
@@ -293,6 +296,7 @@ Monorepo npm workspaces : apps/frontend (React 19 + Vite) et apps/backend
 - Après chaque tâche : lint + build verts avant de conclure.
 
 ## Référence
+
 Le cahier des charges complet est dans CAHIER-DES-CHARGES-ExcelHub-Africa.md ;
 suivre l'ordre des phases de la section 9.
 ```

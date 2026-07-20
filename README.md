@@ -48,19 +48,19 @@ changez ce mot de passe immédiatement).
 
 ## API v1
 
-| Méthode | Route | Accès | Description |
-| --- | --- | --- | --- |
-| GET | `/health` | Public | État du service |
-| POST | `/api/v1/auth/register` | Public | Création de compte client |
-| POST | `/api/v1/auth/login` | Public | Connexion (access + refresh tokens) |
-| POST | `/api/v1/auth/refresh` | Public | Renouvellement des tokens |
-| GET | `/api/v1/products` | Public | Produits publiés |
-| GET | `/api/v1/products/:slug` | Public | Détail d'un produit publié |
-| GET | `/api/v1/admin/products` | Admin | Tous les produits (y compris brouillons) |
-| POST | `/api/v1/admin/products` | Admin | Créer un produit (multipart, champ `file` = .xlsx) |
-| PUT | `/api/v1/admin/products/:id` | Admin | Modifier un produit / remplacer le fichier |
-| DELETE | `/api/v1/admin/products/:id` | Admin | Supprimer un produit |
-| GET | `/api/v1/admin/products/:id/download` | Admin | Télécharger le fichier pour vérification |
+| Méthode | Route                                 | Accès  | Description                                        |
+| ------- | ------------------------------------- | ------ | -------------------------------------------------- |
+| GET     | `/health`                             | Public | État du service                                    |
+| POST    | `/api/v1/auth/register`               | Public | Création de compte client                          |
+| POST    | `/api/v1/auth/login`                  | Public | Connexion (access + refresh tokens)                |
+| POST    | `/api/v1/auth/refresh`                | Public | Renouvellement des tokens                          |
+| GET     | `/api/v1/products`                    | Public | Produits publiés                                   |
+| GET     | `/api/v1/products/:slug`              | Public | Détail d'un produit publié                         |
+| GET     | `/api/v1/admin/products`              | Admin  | Tous les produits (y compris brouillons)           |
+| POST    | `/api/v1/admin/products`              | Admin  | Créer un produit (multipart, champ `file` = .xlsx) |
+| PUT     | `/api/v1/admin/products/:id`          | Admin  | Modifier un produit / remplacer le fichier         |
+| DELETE  | `/api/v1/admin/products/:id`          | Admin  | Supprimer un produit                               |
+| GET     | `/api/v1/admin/products/:id/download` | Admin  | Télécharger le fichier pour vérification           |
 
 Les routes admin exigent l'en-tête `Authorization: Bearer <accessToken>` d'un
 compte dont le rôle est `ADMIN`.

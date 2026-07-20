@@ -44,7 +44,10 @@ authRouter.post('/register', async (request, response) => {
   const payload: AuthPayload = { sub: user.id, role: user.role, email: user.email };
   return ok(
     response,
-    { user: { id: user.id, email: user.email, name: user.name, role: user.role }, ...signTokens(payload) },
+    {
+      user: { id: user.id, email: user.email, name: user.name, role: user.role },
+      ...signTokens(payload),
+    },
     'Compte cree',
     201,
   );
@@ -65,7 +68,10 @@ authRouter.post('/login', async (request, response) => {
   const payload: AuthPayload = { sub: user.id, role: user.role, email: user.email };
   return ok(
     response,
-    { user: { id: user.id, email: user.email, name: user.name, role: user.role }, ...signTokens(payload) },
+    {
+      user: { id: user.id, email: user.email, name: user.name, role: user.role },
+      ...signTokens(payload),
+    },
     'Connexion reussie',
   );
 });

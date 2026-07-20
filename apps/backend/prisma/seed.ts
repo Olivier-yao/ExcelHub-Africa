@@ -42,7 +42,11 @@ const products = [
     tag: 'Pro',
     color: 'blue',
     description: 'Lots, dates d\u2019expiration et alertes de stock faible.',
-    features: ['Gestion des lots', 'Alertes d\u2019expiration', 'Inventaire en temps reel'],
+    features: [
+      'Gestion des lots',
+      'Alertes d\u2019expiration',
+      'Inventaire en temps reel',
+    ],
     published: true,
   },
   {
