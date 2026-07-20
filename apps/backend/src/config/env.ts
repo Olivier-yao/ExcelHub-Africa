@@ -5,6 +5,12 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   PORT: z.coerce.number().int().positive().default(4000),
   CLIENT_URL: z.string().url().default('http://localhost:5173'),
+  DATABASE_URL: z.string().min(1, 'DATABASE_URL est requis'),
+  JWT_SECRET: z.string().min(16, 'JWT_SECRET doit faire au moins 16 caracteres'),
+  JWT_REFRESH_SECRET: z
+    .string()
+    .min(16, 'JWT_REFRESH_SECRET doit faire au moins 16 caracteres'),
+  UPLOAD_DIR: z.string().default('uploads'),
 });
 
 const parsed = envSchema.safeParse(process.env);

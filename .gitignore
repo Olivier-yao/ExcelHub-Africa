@@ -15,9 +15,15 @@ coverage/
 apps/backend/prisma/*.db
 apps/backend/prisma/*.db-journal
 
+# Fichiers Excel uploades par l'admin
+apps/backend/uploads/
+
 # Logs and OS/editor files
 *.log
 .DS_Store
 Thumbs.db
 .idea/
 .vscode/
+
+# Claude Code local settings
+.claude/settings.local.json
