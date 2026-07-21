@@ -3,94 +3,128 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const products = [
+const offers = [
   {
-    slug: 'gestion-boutique-pro',
-    name: 'Gestion Boutique Pro',
+    slug: 'commerce',
+    name: 'Commerce',
     category: 'Commerce',
-    priceFcfa: 5000,
     tag: 'Populaire',
     color: 'emerald',
-    description: 'Ventes, stock, depenses et tableau de bord dans un seul fichier.',
-    features: [
-      'Tableau de bord automatise',
-      'Suivi des ventes et depenses',
-      'Alertes de stock',
-    ],
+    description: 'Ventes, stock et depenses au quotidien pour boutiques et restaurants.',
     published: true,
+    products: [
+      {
+        slug: 'gestion-boutique-pro',
+        name: 'Gestion Boutique Pro',
+        priceFcfa: 5000,
+        description: 'Ventes, stock, depenses et tableau de bord dans un seul fichier.',
+        features: [
+          'Tableau de bord automatise',
+          'Suivi des ventes et depenses',
+          'Alertes de stock',
+        ],
+        published: true,
+      },
+      {
+        slug: 'suivi-restaurant',
+        name: 'Suivi Restaurant',
+        priceFcfa: 5000,
+        description: 'Couts, ventes et profits journaliers a portee de main.',
+        features: ['Cout des matieres', 'Ventes quotidiennes', 'Marge par periode'],
+        published: true,
+      },
+    ],
   },
   {
-    slug: 'caisse-mobile-money',
-    name: 'Caisse Mobile Money',
+    slug: 'finance',
+    name: 'Finance',
     category: 'Finance',
-    priceFcfa: 8500,
     tag: 'Nouveau',
     color: 'amber',
-    description: 'Suivez vos flux Orange, MTN, Moov et vos commissions.',
-    features: [
-      'Multi-operateurs Mobile Money',
-      'Calcul automatique des commissions',
-      'Suivi de tresorerie',
-    ],
+    description: 'Flux financiers, tresorerie et resultat net sous controle.',
     published: true,
+    products: [
+      {
+        slug: 'caisse-mobile-money',
+        name: 'Caisse Mobile Money',
+        priceFcfa: 8500,
+        description: 'Suivez vos flux Orange, MTN, Moov et vos commissions.',
+        features: [
+          'Multi-operateurs Mobile Money',
+          'Calcul automatique des commissions',
+          'Suivi de tresorerie',
+        ],
+        published: true,
+      },
+      {
+        slug: 'comptabilite-simplifiee',
+        name: 'Comptabilite Simplifiee',
+        priceFcfa: 15000,
+        description: 'Recettes, depenses, tresorerie et resultat net lisibles.',
+        features: ['Journal des operations', 'Resultat mensuel', 'Suivi de tresorerie'],
+        published: true,
+      },
+    ],
   },
   {
-    slug: 'suivi-stock-pharmacie',
-    name: 'Suivi Stock Pharmacie',
+    slug: 'pharmacie',
+    name: 'Pharmacie',
     category: 'Pharmacie',
-    priceFcfa: 15000,
     tag: 'Pro',
     color: 'blue',
-    description: 'Lots, dates d\u2019expiration et alertes de stock faible.',
-    features: [
-      'Gestion des lots',
-      'Alertes d\u2019expiration',
-      'Inventaire en temps reel',
+    description: 'Lots, dates d’expiration et alertes de stock faible.',
+    published: true,
+    products: [
+      {
+        slug: 'suivi-stock-pharmacie',
+        name: 'Suivi Stock Pharmacie',
+        priceFcfa: 15000,
+        description: 'Lots, dates d’expiration et alertes de stock faible.',
+        features: [
+          'Gestion des lots',
+          'Alertes d’expiration',
+          'Inventaire en temps reel',
+        ],
+        published: true,
+      },
     ],
-    published: true,
   },
   {
-    slug: 'comptabilite-simplifiee',
-    name: 'Comptabilite Simplifiee',
-    category: 'Finance',
-    priceFcfa: 15000,
-    tag: 'Essentiel',
-    color: 'violet',
-    description: 'Recettes, depenses, tresorerie et resultat net lisibles.',
-    features: ['Journal des operations', 'Resultat mensuel', 'Suivi de tresorerie'],
-    published: true,
-  },
-  {
-    slug: 'gestion-ecole',
-    name: 'Gestion Ecole',
+    slug: 'education',
+    name: 'Education',
     category: 'Education',
-    priceFcfa: 25000,
     tag: 'Pro',
     color: 'rose',
-    description: 'Eleves, paiements, notes et suivi administratif.',
-    features: ['Gestion des eleves', 'Suivi des paiements', 'Bulletins simplifies'],
+    description: 'Eleves, paiements et suivi administratif centralise.',
     published: true,
-  },
-  {
-    slug: 'suivi-restaurant',
-    name: 'Suivi Restaurant',
-    category: 'Commerce',
-    priceFcfa: 5000,
-    tag: 'Simple',
-    color: 'orange',
-    description: 'Couts, ventes et profits journaliers a portee de main.',
-    features: ['Cout des matieres', 'Ventes quotidiennes', 'Marge par periode'],
-    published: true,
+    products: [
+      {
+        slug: 'gestion-ecole',
+        name: 'Gestion Ecole',
+        priceFcfa: 25000,
+        description: 'Eleves, paiements, notes et suivi administratif.',
+        features: ['Gestion des eleves', 'Suivi des paiements', 'Bulletins simplifies'],
+        published: true,
+      },
+    ],
   },
 ];
 
 async function main() {
-  for (const product of products) {
-    await prisma.product.upsert({
-      where: { slug: product.slug },
-      update: product,
-      create: product,
+  for (const { products, ...offer } of offers) {
+    const savedOffer = await prisma.offer.upsert({
+      where: { slug: offer.slug },
+      update: offer,
+      create: offer,
     });
+
+    for (const product of products) {
+      await prisma.product.upsert({
+        where: { slug: product.slug },
+        update: { ...product, offerId: savedOffer.id },
+        create: { ...product, offerId: savedOffer.id },
+      });
+    }
   }
 
   const adminEmail = process.env.SEED_ADMIN_EMAIL ?? 'admin@excelhub.africa';

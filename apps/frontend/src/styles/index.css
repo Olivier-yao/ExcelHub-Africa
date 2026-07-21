@@ -744,6 +744,39 @@ a {
   font-size: 16px;
   line-height: 1.7;
 }
+.offer-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 6px 0 26px;
+}
+.offer-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  border: 1px solid #dfe7e2;
+  border-radius: 12px;
+  background: white;
+  padding: 10px 16px;
+  color: #17423c;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+}
+.offer-option small {
+  color: #71857f;
+  font-size: 11px;
+  font-weight: 600;
+}
+.offer-option.active {
+  background: #174a41;
+  border-color: #174a41;
+  color: white;
+}
+.offer-option.active small {
+  color: #bfe0b5;
+}
 .detail-price {
   color: #194e43;
   font-size: 23px;

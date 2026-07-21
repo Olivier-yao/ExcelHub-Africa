@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
-import { formatFcfa, type Product } from '../data/products';
+import { priceRange, type Offer } from '../data/offers';
 
 type Props = {
-  product: Product;
+  offer: Offer;
 };
 
-export function ProductCard({ product }: Props) {
+export function OfferCard({ offer }: Props) {
   return (
     <article className="product-card">
-      <div className={`product-preview ${product.color}`}>
-        <span className="product-tag">{product.tag}</span>
+      <div className={`product-preview ${offer.color}`}>
+        <span className="product-tag">{offer.tag}</span>
         <div className="sheet">
           <div className="sheet-top">
             <i />
@@ -32,12 +32,12 @@ export function ProductCard({ product }: Props) {
         </div>
       </div>
       <div className="product-content">
-        <p>{product.category}</p>
-        <h3>{product.name}</h3>
-        <span>{product.description}</span>
+        <p>{offer.category}</p>
+        <h3>{offer.name}</h3>
+        <span>{offer.description}</span>
         <div className="product-bottom">
-          <strong>{formatFcfa(product.priceFcfa)}</strong>
-          <Link to={`/produits/${product.slug}`} aria-label={`Voir ${product.name}`}>
+          <strong>{priceRange(offer)}</strong>
+          <Link to={`/produits/${offer.slug}`} aria-label={`Voir ${offer.name}`}>
             ↗
           </Link>
         </div>

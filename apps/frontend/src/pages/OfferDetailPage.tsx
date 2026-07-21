@@ -1,19 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowIcon } from '../components/ArrowIcon';
 import { Logo } from '../components/Logo';
 import { SiteFooter } from '../components/SiteFooter';
-import { formatFcfa } from '../data/products';
-import { useProducts } from '../hooks/useProducts';
+import { formatFcfa } from '../data/offers';
+import { useOffer } from '../hooks/useOffers';
 import { NotFoundPage } from './NotFoundPage';
 
-export function ProductDetailPage() {
+export function OfferDetailPage() {
   const { slug } = useParams();
-  const { data: products } = useProducts();
-  const product = products.find((item) => item.slug === slug);
+  const { data: offer, isLoading } = useOffer(slug);
+  const [selectedSlug, setSelectedSlug] = useState<string>();
   const [addedToCart, setAddedToCart] = useState(false);
 
-  if (!product) {
+  useEffect(() => {
+    setSelectedSlug(undefined);
+    setAddedToCart(false);
+  }, [slug]);
+
+  if (!offer) {
+    return isLoading ? null : <NotFoundPage />;
+  }
+
+  const selectedProduct =
+    offer.products.find((product) => product.slug === selectedSlug) ?? offer.products[0];
+
+  if (!selectedProduct) {
     return <NotFoundPage />;
   }
 
@@ -31,11 +43,11 @@ export function ProductDetailPage() {
           <span>/</span>
           <Link to="/#catalogue">Catalogue</Link>
           <span>/</span>
-          <b>{product.name}</b>
+          <b>{offer.name}</b>
         </div>
         <div className="detail-grid">
-          <div className={`detail-preview product-preview ${product.color}`}>
-            <span className="product-tag">{product.tag}</span>
+          <div className={`detail-preview product-preview ${offer.color}`}>
+            <span className="product-tag">{offer.tag}</span>
             <div className="detail-sheet">
               <div className="sheet-top">
                 <i />
@@ -59,13 +71,40 @@ export function ProductDetailPage() {
             <span className="excel-badge">XLSX</span>
           </div>
           <section className="detail-content" aria-labelledby="product-title">
-            <p className="kicker">{product.category}</p>
-            <h1 id="product-title">{product.name}</h1>
-            <p className="detail-description">
-              {product.description} Gagnez du temps et prenez vos décisions avec des
-              chiffres clairs.
-            </p>
-            <p className="detail-price">{formatFcfa(product.priceFcfa)}</p>
+            <p className="kicker">{offer.category}</p>
+            <h1 id="product-title">{selectedProduct.name}</h1>
+            <p className="detail-description">{selectedProduct.description}</p>
+
+            {offer.products.length > 1 && (
+              <div
+                className="offer-options"
+                role="radiogroup"
+                aria-label="Choisir un outil"
+              >
+                {offer.products.map((product) => (
+                  <button
+                    key={product.slug}
+                    type="button"
+                    role="radio"
+                    aria-checked={product.slug === selectedProduct.slug}
+                    className={
+                      product.slug === selectedProduct.slug
+                        ? 'offer-option active'
+                        : 'offer-option'
+                    }
+                    onClick={() => {
+                      setSelectedSlug(product.slug);
+                      setAddedToCart(false);
+                    }}
+                  >
+                    <span>{product.name}</span>
+                    <small>{formatFcfa(product.priceFcfa)}</small>
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <p className="detail-price">{formatFcfa(selectedProduct.priceFcfa)}</p>
             <button
               className="button detail-button"
               type="button"
@@ -89,7 +128,7 @@ export function ProductDetailPage() {
             <h2>Tout ce qu’il faut pour démarrer.</h2>
           </div>
           <ul>
-            {product.features.map((feature) => (
+            {selectedProduct.features.map((feature) => (
               <li key={feature}>
                 <span>✓</span>
                 {feature}

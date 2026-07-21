@@ -29,14 +29,27 @@ model User {
   orders       Order[]
 }
 
-model Product {
-  id          String      @id @default(cuid())
-  slug        String      @unique
+model Offer {
+  id          String    @id @default(cuid())
+  slug        String    @unique
   name        String
   category    String
+  tag         String    @default("")
+  color       String    @default("emerald")
+  description String
+  published   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
+}
+
+model Product {
+  id          String      @id @default(cuid())
+  offerId     String
+  offer       Offer       @relation(fields: [offerId], references: [id])
+  slug        String      @unique
+  name        String
   priceFcfa   Int
-  tag         String      @default("")
-  color       String      @default("emerald")
   description String
   features    String[]
   fileName    String? // nom original du fichier .xlsx

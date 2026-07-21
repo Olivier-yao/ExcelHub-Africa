@@ -1,20 +1,20 @@
 import { useMemo, useState } from 'react';
 import { ArrowIcon } from '../components/ArrowIcon';
 import { Logo } from '../components/Logo';
-import { ProductCard } from '../components/ProductCard';
+import { OfferCard } from '../components/OfferCard';
 import { SiteFooter } from '../components/SiteFooter';
-import { categories } from '../data/products';
-import { useProducts } from '../hooks/useProducts';
+import { categories } from '../data/offers';
+import { useOffers } from '../hooks/useOffers';
 
 export function HomePage() {
-  const { data: products } = useProducts();
+  const { data: offers } = useOffers();
   const [activeCategory, setActiveCategory] = useState('Tous');
-  const displayedProducts = useMemo(
+  const displayedOffers = useMemo(
     () =>
       activeCategory === 'Tous'
-        ? products
-        : products.filter((product) => product.category === activeCategory),
-    [activeCategory, products],
+        ? offers
+        : offers.filter((offer) => offer.category === activeCategory),
+    [activeCategory, offers],
   );
 
   return (
@@ -186,8 +186,8 @@ export function HomePage() {
             ))}
           </div>
           <div className="product-grid">
-            {displayedProducts.map((product) => (
-              <ProductCard key={product.slug} product={product} />
+            {displayedOffers.map((offer) => (
+              <OfferCard key={offer.slug} offer={offer} />
             ))}
           </div>
         </section>

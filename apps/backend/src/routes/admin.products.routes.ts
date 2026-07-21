@@ -38,15 +38,13 @@ const upload = multer({
 });
 
 const productSchema = z.object({
+  offerId: z.string().min(1, 'Offre requise'),
   slug: z
     .string()
     .min(3)
     .regex(/^[a-z0-9-]+$/, 'Slug: minuscules, chiffres et tirets uniquement'),
   name: z.string().min(2),
-  category: z.string().min(2),
   priceFcfa: z.coerce.number().int().positive(),
-  tag: z.string().default(''),
-  color: z.string().default('emerald'),
   description: z.string().min(10),
   features: z.union([z.array(z.string()), z.string()]).transform((value) =>
     Array.isArray(value)
@@ -62,8 +60,13 @@ const productSchema = z.object({
     .default(false),
 });
 
-adminProductsRouter.get('/', async (_request, response) => {
-  const products = await prisma.product.findMany({ orderBy: { createdAt: 'asc' } });
+adminProductsRouter.get('/', async (request, response) => {
+  const offerId =
+    typeof request.query.offerId === 'string' ? request.query.offerId : undefined;
+  const products = await prisma.product.findMany({
+    where: offerId ? { offerId } : undefined,
+    orderBy: { createdAt: 'asc' },
+  });
   return ok(response, products);
 });
 
@@ -71,6 +74,11 @@ adminProductsRouter.post('/', upload.single('file'), async (request, response) =
   const parsed = productSchema.safeParse(request.body);
   if (!parsed.success) {
     return fail(response, 400, 'Donnees invalides', parsed.error.issues);
+  }
+
+  const offer = await prisma.offer.findUnique({ where: { id: parsed.data.offerId } });
+  if (!offer) {
+    return fail(response, 400, 'Offre introuvable');
   }
 
   const existing = await prisma.product.findUnique({
@@ -97,6 +105,13 @@ adminProductsRouter.put(
     const parsed = productSchema.partial().safeParse(request.body);
     if (!parsed.success) {
       return fail(response, 400, 'Donnees invalides', parsed.error.issues);
+    }
+
+    if (parsed.data.offerId) {
+      const offer = await prisma.offer.findUnique({ where: { id: parsed.data.offerId } });
+      if (!offer) {
+        return fail(response, 400, 'Offre introuvable');
+      }
     }
 
     const current = await prisma.product.findUnique({ where: { id: request.params.id } });
