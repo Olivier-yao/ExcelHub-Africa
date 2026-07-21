@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { AccountMenu } from '../components/AccountMenu';
 import { ArrowIcon } from '../components/ArrowIcon';
 import { Logo } from '../components/Logo';
 import { OfferCard } from '../components/OfferCard';
@@ -27,9 +28,7 @@ export function HomePage() {
           <a href="#pourquoi">Pourquoi nous</a>
         </nav>
         <div className="nav-actions">
-          <button className="link-button" type="button">
-            Se connecter
-          </button>
+          <AccountMenu />
           <a className="button button-small" href="#catalogue">
             Explorer
           </a>
