@@ -66,6 +66,8 @@ model ProductVariant {
   name        String
   color       String   @default("emerald")
   description String?
+  sheetCount  Int      @default(1)
+  howToUse    String?
   fileName    String? // nom original du fichier .xlsx
   filePath    String? // chemin de stockage interne (jamais expose au client)
   published   Boolean  @default(false)

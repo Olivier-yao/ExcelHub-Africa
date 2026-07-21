@@ -3,6 +3,8 @@ export type ProductVariant = {
   name: string;
   color: string;
   description?: string;
+  sheetCount: number;
+  howToUse?: string;
 };
 
 export type OfferProduct = {
@@ -70,11 +72,17 @@ export const fallbackOffers: Offer[] = [
             name: 'Vert Émeraude',
             color: 'emerald',
             description: 'Palette verte apaisante, idéale pour un tableau de bord clair.',
+            sheetCount: 4,
+            howToUse:
+              "Ouvrez le fichier, renseignez vos ventes du jour dans l'onglet Ventes, le tableau de bord se met à jour automatiquement.",
           },
           {
             name: 'Bleu Océan',
             color: 'blue',
             description: 'Palette bleue sobre pour une présentation professionnelle.',
+            sheetCount: 4,
+            howToUse:
+              'Même structure que la version verte, avec une palette bleue adaptée à une identité visuelle plus formelle.',
           },
         ],
       },
@@ -89,11 +97,17 @@ export const fallbackOffers: Offer[] = [
             name: 'Orange Chaleureux',
             color: 'orange',
             description: 'Palette orange conviviale, adaptée à la restauration.',
+            sheetCount: 3,
+            howToUse:
+              'Renseignez vos achats et ventes du jour, la marge se calcule automatiquement en fin de journée.',
           },
           {
             name: 'Gris Minimaliste',
             color: 'slate',
             description: 'Présentation épurée, sans distraction visuelle.',
+            sheetCount: 3,
+            howToUse:
+              'Même usage que la version orange, avec une présentation plus neutre.',
           },
         ],
       },
@@ -122,11 +136,16 @@ export const fallbackOffers: Offer[] = [
             name: 'Ambre Classique',
             color: 'amber',
             description: 'Présentation ambrée, proche des codes Mobile Money.',
+            sheetCount: 5,
+            howToUse:
+              'Un onglet par opérateur, saisissez chaque dépôt et retrait, les commissions se calculent seules.',
           },
           {
             name: 'Vert Nature',
             color: 'emerald',
             description: 'Variante verte pour une lecture plus reposante.',
+            sheetCount: 5,
+            howToUse: 'Même fonctionnement que la version ambrée, palette verte.',
           },
         ],
       },
@@ -141,11 +160,16 @@ export const fallbackOffers: Offer[] = [
             name: 'Violet Élégant',
             color: 'violet',
             description: 'Présentation soignée pour un rendu premium.',
+            sheetCount: 6,
+            howToUse:
+              "Saisissez chaque opération dans le journal, le résultat mensuel se met à jour dans l'onglet Synthèse.",
           },
           {
             name: 'Bleu Corporate',
             color: 'blue',
             description: 'Palette bleue classique, adaptée aux rapports formels.',
+            sheetCount: 6,
+            howToUse: 'Même usage que la version violette, présentation plus sobre.',
           },
         ],
       },
@@ -174,11 +198,16 @@ export const fallbackOffers: Offer[] = [
             name: 'Bleu Médical',
             color: 'blue',
             description: 'Palette bleue rassurante, codes visuels du secteur médical.',
+            sheetCount: 4,
+            howToUse:
+              "Ajoutez chaque lot reçu avec sa date d'expiration, les alertes de stock faible apparaissent automatiquement.",
           },
           {
             name: 'Vert Pharmacie',
             color: 'emerald',
             description: 'Variante verte, alternative lisible et contrastée.',
+            sheetCount: 4,
+            howToUse: 'Même usage que la version bleue, palette verte.',
           },
         ],
       },
@@ -203,11 +232,16 @@ export const fallbackOffers: Offer[] = [
             name: 'Rose Ludique',
             color: 'rose',
             description: 'Présentation chaleureuse, adaptée au primaire.',
+            sheetCount: 5,
+            howToUse:
+              "Inscrivez chaque élève dans l'onglet Élèves, suivez ses paiements et ses notes dans les onglets dédiés.",
           },
           {
             name: 'Bleu Scolaire',
             color: 'blue',
             description: 'Présentation sobre, adaptée au secondaire.',
+            sheetCount: 5,
+            howToUse: 'Même usage que la version rose, présentation plus sobre.',
           },
         ],
       },

@@ -19,6 +19,8 @@ const publicProductSelect = {
       name: true,
       color: true,
       description: true,
+      sheetCount: true,
+      howToUse: true,
     },
   },
 } as const;
