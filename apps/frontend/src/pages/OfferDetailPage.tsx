@@ -11,12 +11,17 @@ export function OfferDetailPage() {
   const { slug } = useParams();
   const { data: offer, isLoading } = useOffer(slug);
   const [selectedSlug, setSelectedSlug] = useState<string>();
+  const [selectedVariantId, setSelectedVariantId] = useState<string>();
   const [addedToCart, setAddedToCart] = useState(false);
 
   useEffect(() => {
     setSelectedSlug(undefined);
     setAddedToCart(false);
   }, [slug]);
+
+  useEffect(() => {
+    setSelectedVariantId(undefined);
+  }, [selectedSlug]);
 
   if (!offer) {
     return isLoading ? null : <NotFoundPage />;
@@ -28,6 +33,10 @@ export function OfferDetailPage() {
   if (!selectedProduct) {
     return <NotFoundPage />;
   }
+
+  const selectedVariant =
+    selectedProduct.variants.find((variant) => variant.id === selectedVariantId) ??
+    selectedProduct.variants[0];
 
   return (
     <div className="site-shell">
@@ -73,7 +82,9 @@ export function OfferDetailPage() {
           <section className="detail-content" aria-labelledby="product-title">
             <p className="kicker">{offer.category}</p>
             <h1 id="product-title">{selectedProduct.name}</h1>
-            <p className="detail-description">{selectedProduct.description}</p>
+            <p className="detail-description">
+              {selectedVariant?.description ?? selectedProduct.description}
+            </p>
 
             {offer.products.length > 1 && (
               <div
@@ -101,6 +112,38 @@ export function OfferDetailPage() {
                     <small>{formatFcfa(product.priceFcfa)}</small>
                   </button>
                 ))}
+              </div>
+            )}
+
+            {selectedProduct.variants.length > 0 && (
+              <div
+                className="variant-options"
+                role="radiogroup"
+                aria-label="Choisir une présentation"
+              >
+                <p className="variant-options-label">Présentation du fichier</p>
+                <div className="variant-swatches">
+                  {selectedProduct.variants.map((variant) => (
+                    <button
+                      key={variant.id ?? variant.name}
+                      type="button"
+                      role="radio"
+                      aria-checked={variant.id === selectedVariant?.id}
+                      className={
+                        variant.id === selectedVariant?.id
+                          ? 'variant-swatch active'
+                          : 'variant-swatch'
+                      }
+                      onClick={() => setSelectedVariantId(variant.id)}
+                    >
+                      <span
+                        className={`variant-dot ${variant.color}`}
+                        aria-hidden="true"
+                      />
+                      {variant.name}
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
 

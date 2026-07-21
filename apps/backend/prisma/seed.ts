@@ -24,6 +24,20 @@ const offers = [
           'Alertes de stock',
         ],
         published: true,
+        variants: [
+          {
+            name: 'Vert Emeraude',
+            color: 'emerald',
+            description: 'Palette verte apaisante, ideale pour un tableau de bord clair.',
+            published: true,
+          },
+          {
+            name: 'Bleu Ocean',
+            color: 'blue',
+            description: 'Palette bleue sobre pour une presentation professionnelle.',
+            published: true,
+          },
+        ],
       },
       {
         slug: 'suivi-restaurant',
@@ -32,6 +46,20 @@ const offers = [
         description: 'Couts, ventes et profits journaliers a portee de main.',
         features: ['Cout des matieres', 'Ventes quotidiennes', 'Marge par periode'],
         published: true,
+        variants: [
+          {
+            name: 'Orange Chaleureux',
+            color: 'orange',
+            description: 'Palette orange conviviale, adaptee a la restauration.',
+            published: true,
+          },
+          {
+            name: 'Gris Minimaliste',
+            color: 'slate',
+            description: 'Presentation epuree, sans distraction visuelle.',
+            published: true,
+          },
+        ],
       },
     ],
   },
@@ -55,6 +83,20 @@ const offers = [
           'Suivi de tresorerie',
         ],
         published: true,
+        variants: [
+          {
+            name: 'Ambre Classique',
+            color: 'amber',
+            description: 'Presentation ambree, proche des codes Mobile Money.',
+            published: true,
+          },
+          {
+            name: 'Vert Nature',
+            color: 'emerald',
+            description: 'Variante verte pour une lecture plus reposante.',
+            published: true,
+          },
+        ],
       },
       {
         slug: 'comptabilite-simplifiee',
@@ -63,6 +105,20 @@ const offers = [
         description: 'Recettes, depenses, tresorerie et resultat net lisibles.',
         features: ['Journal des operations', 'Resultat mensuel', 'Suivi de tresorerie'],
         published: true,
+        variants: [
+          {
+            name: 'Violet Elegant',
+            color: 'violet',
+            description: 'Presentation soignee pour un rendu premium.',
+            published: true,
+          },
+          {
+            name: 'Bleu Corporate',
+            color: 'blue',
+            description: 'Palette bleue classique, adaptee aux rapports formels.',
+            published: true,
+          },
+        ],
       },
     ],
   },
@@ -86,6 +142,20 @@ const offers = [
           'Inventaire en temps reel',
         ],
         published: true,
+        variants: [
+          {
+            name: 'Bleu Medical',
+            color: 'blue',
+            description: 'Palette bleue rassurante, codes visuels du secteur medical.',
+            published: true,
+          },
+          {
+            name: 'Vert Pharmacie',
+            color: 'emerald',
+            description: 'Variante verte, alternative lisible et contrastee.',
+            published: true,
+          },
+        ],
       },
     ],
   },
@@ -105,6 +175,20 @@ const offers = [
         description: 'Eleves, paiements, notes et suivi administratif.',
         features: ['Gestion des eleves', 'Suivi des paiements', 'Bulletins simplifies'],
         published: true,
+        variants: [
+          {
+            name: 'Rose Ludique',
+            color: 'rose',
+            description: 'Presentation chaleureuse, adaptee au primaire.',
+            published: true,
+          },
+          {
+            name: 'Bleu Scolaire',
+            color: 'blue',
+            description: 'Presentation sobre, adaptee au secondaire.',
+            published: true,
+          },
+        ],
       },
     ],
   },
@@ -118,11 +202,16 @@ async function main() {
       create: offer,
     });
 
-    for (const product of products) {
-      await prisma.product.upsert({
+    for (const { variants, ...product } of products) {
+      const savedProduct = await prisma.product.upsert({
         where: { slug: product.slug },
         update: { ...product, offerId: savedOffer.id },
         create: { ...product, offerId: savedOffer.id },
+      });
+
+      await prisma.productVariant.deleteMany({ where: { productId: savedProduct.id } });
+      await prisma.productVariant.createMany({
+        data: variants.map((variant) => ({ ...variant, productId: savedProduct.id })),
       });
     }
   }

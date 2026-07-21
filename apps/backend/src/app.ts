@@ -3,6 +3,7 @@ import express from 'express';
 import type { NextFunction, Request, Response } from 'express';
 import { env } from './config/env.js';
 import { adminOffersRouter } from './routes/admin.offers.routes.js';
+import { adminProductVariantsRouter } from './routes/admin.product-variants.routes.js';
 import { adminProductsRouter } from './routes/admin.products.routes.js';
 import { authRouter } from './routes/auth.routes.js';
 import { offersRouter } from './routes/offers.routes.js';
@@ -25,6 +26,7 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/offers', offersRouter);
 app.use('/api/v1/admin/offers', adminOffersRouter);
 app.use('/api/v1/admin/products', adminProductsRouter);
+app.use('/api/v1/admin/product-variants', adminProductVariantsRouter);
 
 app.use((_request, response) => {
   return fail(response, 404, 'Route introuvable');

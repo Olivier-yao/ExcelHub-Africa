@@ -44,20 +44,33 @@ model Offer {
 }
 
 model Product {
-  id          String      @id @default(cuid())
+  id          String           @id @default(cuid())
   offerId     String
-  offer       Offer       @relation(fields: [offerId], references: [id])
-  slug        String      @unique
+  offer       Offer            @relation(fields: [offerId], references: [id])
+  slug        String           @unique
   name        String
   priceFcfa   Int
   description String
   features    String[]
+  published   Boolean          @default(false)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  orderItems  OrderItem[]
+  variants    ProductVariant[]
+}
+
+model ProductVariant {
+  id          String   @id @default(cuid())
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id])
+  name        String
+  color       String   @default("emerald")
+  description String?
   fileName    String? // nom original du fichier .xlsx
   filePath    String? // chemin de stockage interne (jamais expose au client)
-  published   Boolean     @default(false)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  orderItems  OrderItem[]
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Order {

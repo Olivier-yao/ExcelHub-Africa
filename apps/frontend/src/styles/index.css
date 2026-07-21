@@ -777,6 +777,67 @@ a {
 .offer-option.active small {
   color: #bfe0b5;
 }
+.variant-options {
+  margin: 0 0 20px;
+}
+.variant-options-label {
+  color: #71857f;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin: 0 0 8px;
+}
+.variant-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.variant-swatch {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid #dfe7e2;
+  border-radius: 20px;
+  background: white;
+  padding: 7px 13px 7px 8px;
+  color: #445a56;
+  font-size: 12px;
+  font-weight: 600;
+}
+.variant-swatch.active {
+  border-color: #174a41;
+  color: #174a41;
+  background: #eaf3ea;
+}
+.variant-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.variant-dot.emerald {
+  background: #4caf7d;
+}
+.variant-dot.amber {
+  background: #e8b84b;
+}
+.variant-dot.blue {
+  background: #5a9bc2;
+}
+.variant-dot.violet {
+  background: #a184cf;
+}
+.variant-dot.rose {
+  background: #dd8b96;
+}
+.variant-dot.orange {
+  background: #e08a4f;
+}
+.variant-dot.slate {
+  background: #8a97a3;
+}
 .detail-price {
   color: #194e43;
   font-size: 23px;

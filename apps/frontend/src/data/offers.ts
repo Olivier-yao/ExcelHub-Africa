@@ -1,3 +1,10 @@
+export type ProductVariant = {
+  id?: string;
+  name: string;
+  color: string;
+  description?: string;
+};
+
 export type OfferProduct = {
   id?: string;
   slug: string;
@@ -5,6 +12,7 @@ export type OfferProduct = {
   priceFcfa: number;
   description: string;
   features: string[];
+  variants: ProductVariant[];
 };
 
 export type Offer = {
@@ -57,6 +65,18 @@ export const fallbackOffers: Offer[] = [
           'Suivi des ventes et dépenses',
           'Alertes de stock',
         ],
+        variants: [
+          {
+            name: 'Vert Émeraude',
+            color: 'emerald',
+            description: 'Palette verte apaisante, idéale pour un tableau de bord clair.',
+          },
+          {
+            name: 'Bleu Océan',
+            color: 'blue',
+            description: 'Palette bleue sobre pour une présentation professionnelle.',
+          },
+        ],
       },
       {
         slug: 'suivi-restaurant',
@@ -64,6 +84,18 @@ export const fallbackOffers: Offer[] = [
         priceFcfa: 5000,
         description: 'Coûts, ventes et profits journaliers à portée de main.',
         features: ['Coût des matières', 'Ventes quotidiennes', 'Marge par période'],
+        variants: [
+          {
+            name: 'Orange Chaleureux',
+            color: 'orange',
+            description: 'Palette orange conviviale, adaptée à la restauration.',
+          },
+          {
+            name: 'Gris Minimaliste',
+            color: 'slate',
+            description: 'Présentation épurée, sans distraction visuelle.',
+          },
+        ],
       },
     ],
   },
@@ -85,6 +117,18 @@ export const fallbackOffers: Offer[] = [
           'Calcul automatique des commissions',
           'Suivi de trésorerie',
         ],
+        variants: [
+          {
+            name: 'Ambre Classique',
+            color: 'amber',
+            description: 'Présentation ambrée, proche des codes Mobile Money.',
+          },
+          {
+            name: 'Vert Nature',
+            color: 'emerald',
+            description: 'Variante verte pour une lecture plus reposante.',
+          },
+        ],
       },
       {
         slug: 'comptabilite-simplifiee',
@@ -92,6 +136,18 @@ export const fallbackOffers: Offer[] = [
         priceFcfa: 15000,
         description: 'Recettes, dépenses, trésorerie et résultat net lisibles.',
         features: ['Journal des opérations', 'Résultat mensuel', 'Suivi de trésorerie'],
+        variants: [
+          {
+            name: 'Violet Élégant',
+            color: 'violet',
+            description: 'Présentation soignée pour un rendu premium.',
+          },
+          {
+            name: 'Bleu Corporate',
+            color: 'blue',
+            description: 'Palette bleue classique, adaptée aux rapports formels.',
+          },
+        ],
       },
     ],
   },
@@ -113,6 +169,18 @@ export const fallbackOffers: Offer[] = [
           'Alertes d’expiration',
           'Inventaire en temps réel',
         ],
+        variants: [
+          {
+            name: 'Bleu Médical',
+            color: 'blue',
+            description: 'Palette bleue rassurante, codes visuels du secteur médical.',
+          },
+          {
+            name: 'Vert Pharmacie',
+            color: 'emerald',
+            description: 'Variante verte, alternative lisible et contrastée.',
+          },
+        ],
       },
     ],
   },
@@ -130,6 +198,18 @@ export const fallbackOffers: Offer[] = [
         priceFcfa: 25000,
         description: 'Élèves, paiements, notes et suivi administratif.',
         features: ['Gestion des élèves', 'Suivi des paiements', 'Bulletins simplifiés'],
+        variants: [
+          {
+            name: 'Rose Ludique',
+            color: 'rose',
+            description: 'Présentation chaleureuse, adaptée au primaire.',
+          },
+          {
+            name: 'Bleu Scolaire',
+            color: 'blue',
+            description: 'Présentation sobre, adaptée au secondaire.',
+          },
+        ],
       },
     ],
   },

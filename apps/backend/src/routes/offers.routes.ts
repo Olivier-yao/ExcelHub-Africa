@@ -11,6 +11,16 @@ const publicProductSelect = {
   priceFcfa: true,
   description: true,
   features: true,
+  variants: {
+    where: { published: true },
+    orderBy: { createdAt: 'asc' },
+    select: {
+      id: true,
+      name: true,
+      color: true,
+      description: true,
+    },
+  },
 } as const;
 
 function withPriceRange<T extends { products: { priceFcfa: number }[] }>(offer: T) {
