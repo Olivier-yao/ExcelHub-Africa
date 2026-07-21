@@ -39,9 +39,15 @@ const upload = multer({
 
 const variantSchema = z.object({
   productId: z.string().min(1, 'Outil requis'),
+  slug: z
+    .string()
+    .min(2)
+    .regex(/^[a-z0-9-]+$/, 'Slug: minuscules, chiffres et tirets uniquement'),
   name: z.string().min(2),
   color: z.string().default('emerald'),
   description: z.string().optional(),
+  sheetCount: z.coerce.number().int().positive().default(1),
+  howToUse: z.string().optional(),
   published: z
     .union([z.boolean(), z.string()])
     .transform((value) => value === true || value === 'true' || value === '1')
@@ -69,6 +75,15 @@ adminProductVariantsRouter.post('/', upload.single('file'), async (request, resp
   });
   if (!product) {
     return fail(response, 400, 'Outil introuvable');
+  }
+
+  const existing = await prisma.productVariant.findUnique({
+    where: {
+      productId_slug: { productId: parsed.data.productId, slug: parsed.data.slug },
+    },
+  });
+  if (existing) {
+    return fail(response, 409, 'Une variante utilise deja ce slug pour cet outil');
   }
 
   const variant = await prisma.productVariant.create({

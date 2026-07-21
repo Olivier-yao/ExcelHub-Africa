@@ -1,5 +1,6 @@
 export type ProductVariant = {
   id?: string;
+  slug: string;
   name: string;
   color: string;
   description?: string;
@@ -69,6 +70,7 @@ export const fallbackOffers: Offer[] = [
         ],
         variants: [
           {
+            slug: 'vert-emeraude',
             name: 'Vert Émeraude',
             color: 'emerald',
             description: 'Palette verte apaisante, idéale pour un tableau de bord clair.',
@@ -77,6 +79,7 @@ export const fallbackOffers: Offer[] = [
               "Ouvrez le fichier, renseignez vos ventes du jour dans l'onglet Ventes, le tableau de bord se met à jour automatiquement.",
           },
           {
+            slug: 'bleu-ocean',
             name: 'Bleu Océan',
             color: 'blue',
             description: 'Palette bleue sobre pour une présentation professionnelle.',
@@ -94,6 +97,7 @@ export const fallbackOffers: Offer[] = [
         features: ['Coût des matières', 'Ventes quotidiennes', 'Marge par période'],
         variants: [
           {
+            slug: 'orange-chaleureux',
             name: 'Orange Chaleureux',
             color: 'orange',
             description: 'Palette orange conviviale, adaptée à la restauration.',
@@ -102,6 +106,7 @@ export const fallbackOffers: Offer[] = [
               'Renseignez vos achats et ventes du jour, la marge se calcule automatiquement en fin de journée.',
           },
           {
+            slug: 'gris-minimaliste',
             name: 'Gris Minimaliste',
             color: 'slate',
             description: 'Présentation épurée, sans distraction visuelle.',
@@ -133,6 +138,7 @@ export const fallbackOffers: Offer[] = [
         ],
         variants: [
           {
+            slug: 'ambre-classique',
             name: 'Ambre Classique',
             color: 'amber',
             description: 'Présentation ambrée, proche des codes Mobile Money.',
@@ -141,6 +147,7 @@ export const fallbackOffers: Offer[] = [
               'Un onglet par opérateur, saisissez chaque dépôt et retrait, les commissions se calculent seules.',
           },
           {
+            slug: 'vert-nature',
             name: 'Vert Nature',
             color: 'emerald',
             description: 'Variante verte pour une lecture plus reposante.',
@@ -157,6 +164,7 @@ export const fallbackOffers: Offer[] = [
         features: ['Journal des opérations', 'Résultat mensuel', 'Suivi de trésorerie'],
         variants: [
           {
+            slug: 'violet-elegant',
             name: 'Violet Élégant',
             color: 'violet',
             description: 'Présentation soignée pour un rendu premium.',
@@ -165,6 +173,7 @@ export const fallbackOffers: Offer[] = [
               "Saisissez chaque opération dans le journal, le résultat mensuel se met à jour dans l'onglet Synthèse.",
           },
           {
+            slug: 'bleu-corporate',
             name: 'Bleu Corporate',
             color: 'blue',
             description: 'Palette bleue classique, adaptée aux rapports formels.',
@@ -195,6 +204,7 @@ export const fallbackOffers: Offer[] = [
         ],
         variants: [
           {
+            slug: 'bleu-medical',
             name: 'Bleu Médical',
             color: 'blue',
             description: 'Palette bleue rassurante, codes visuels du secteur médical.',
@@ -203,6 +213,7 @@ export const fallbackOffers: Offer[] = [
               "Ajoutez chaque lot reçu avec sa date d'expiration, les alertes de stock faible apparaissent automatiquement.",
           },
           {
+            slug: 'vert-pharmacie',
             name: 'Vert Pharmacie',
             color: 'emerald',
             description: 'Variante verte, alternative lisible et contrastée.',
@@ -229,6 +240,7 @@ export const fallbackOffers: Offer[] = [
         features: ['Gestion des élèves', 'Suivi des paiements', 'Bulletins simplifiés'],
         variants: [
           {
+            slug: 'rose-ludique',
             name: 'Rose Ludique',
             color: 'rose',
             description: 'Présentation chaleureuse, adaptée au primaire.',
@@ -237,6 +249,7 @@ export const fallbackOffers: Offer[] = [
               "Inscrivez chaque élève dans l'onglet Élèves, suivez ses paiements et ses notes dans les onglets dédiés.",
           },
           {
+            slug: 'bleu-scolaire',
             name: 'Bleu Scolaire',
             color: 'blue',
             description: 'Présentation sobre, adaptée au secondaire.',

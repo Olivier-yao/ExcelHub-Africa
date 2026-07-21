@@ -665,9 +665,22 @@ a {
   background: #fff;
   border: 1px solid #e8ece9;
   border-radius: 12px;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.variant-card:has(.variant-card-link:hover) {
+  transform: translateY(-5px);
+  box-shadow: 0 17px 31px rgba(27, 69, 55, 0.1);
+}
+.variant-card-link {
+  display: block;
 }
 .variant-card-content {
-  padding: 19px;
+  padding: 19px 19px 0;
+}
+.variant-card-actions {
+  padding: 14px 19px 19px;
 }
 .variant-card-content h3 {
   margin: 0 0 9px;
@@ -968,6 +981,38 @@ a {
   color: #18815e;
   font-size: 10px;
   font-weight: 800;
+}
+.included-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px 24px;
+}
+.included-list li {
+  color: #58706b;
+  display: flex;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 0 0 14px;
+}
+.included-list li span {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #e6f3d9;
+  color: #18815e;
+  font-size: 10px;
+  font-weight: 800;
+}
+.variant-how-to-large {
+  max-width: none;
+  margin-top: 20px;
 }
 .steps {
   border-top: 1px solid #e0e8e2;

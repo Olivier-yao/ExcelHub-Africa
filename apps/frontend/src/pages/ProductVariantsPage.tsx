@@ -56,38 +56,45 @@ export function ProductVariantsPage() {
           <div className="variant-grid">
             {product.variants.map((variant) => (
               <article key={variant.id ?? variant.name} className="variant-card">
-                <div className={`product-preview ${variant.color}`}>
-                  <div className="sheet">
-                    <div className="sheet-top">
-                      <i />
-                      <i />
-                      <i />
+                <Link
+                  className="variant-card-link"
+                  to={`/produits/${offer.slug}/${product.slug}/${variant.slug}`}
+                >
+                  <div className={`product-preview ${variant.color}`}>
+                    <div className="sheet">
+                      <div className="sheet-top">
+                        <i />
+                        <i />
+                        <i />
+                      </div>
+                      <div className="sheet-columns">
+                        <span />
+                        <span />
+                        <span />
+                        <span />
+                      </div>
+                      <div className="sheet-chart">
+                        <i />
+                        <i />
+                        <i />
+                        <i />
+                        <i />
+                      </div>
                     </div>
-                    <div className="sheet-columns">
-                      <span />
-                      <span />
-                      <span />
-                      <span />
-                    </div>
-                    <div className="sheet-chart">
-                      <i />
-                      <i />
-                      <i />
-                      <i />
-                      <i />
-                    </div>
+                    <span className="excel-badge">XLSX</span>
                   </div>
-                  <span className="excel-badge">XLSX</span>
-                </div>
-                <div className="variant-card-content">
-                  <h3>{variant.name}</h3>
-                  {variant.description && <p>{variant.description}</p>}
-                  <dl className="variant-meta">
-                    <div>
-                      <dt>Feuilles</dt>
-                      <dd>{variant.sheetCount}</dd>
-                    </div>
-                  </dl>
+                  <div className="variant-card-content">
+                    <h3>{variant.name}</h3>
+                    {variant.description && <p>{variant.description}</p>}
+                    <dl className="variant-meta">
+                      <div>
+                        <dt>Feuilles</dt>
+                        <dd>{variant.sheetCount}</dd>
+                      </div>
+                    </dl>
+                  </div>
+                </Link>
+                <div className="variant-card-actions">
                   {variant.howToUse && (
                     <p className="variant-how-to">
                       <strong>Comment l’utiliser :</strong> {variant.howToUse}

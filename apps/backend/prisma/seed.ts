@@ -3,6 +3,13 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+function slugify(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
 const offers = [
   {
     slug: 'commerce',
@@ -243,7 +250,11 @@ async function main() {
 
       await prisma.productVariant.deleteMany({ where: { productId: savedProduct.id } });
       await prisma.productVariant.createMany({
-        data: variants.map((variant) => ({ ...variant, productId: savedProduct.id })),
+        data: variants.map((variant) => ({
+          ...variant,
+          slug: slugify(variant.name),
+          productId: savedProduct.id,
+        })),
       });
     }
   }

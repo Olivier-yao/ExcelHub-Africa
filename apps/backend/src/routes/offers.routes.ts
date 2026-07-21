@@ -16,6 +16,7 @@ const publicProductSelect = {
     orderBy: { createdAt: 'asc' },
     select: {
       id: true,
+      slug: true,
       name: true,
       color: true,
       description: true,
