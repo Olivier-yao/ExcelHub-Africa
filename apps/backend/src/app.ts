@@ -35,7 +35,6 @@ app.use((_request, response) => {
 });
 
 app.use((error: unknown, _request: Request, response: Response, _next: NextFunction) => {
-  const message = error instanceof Error ? error.message : 'Erreur interne';
   console.error(error);
-  return fail(response, 500, message);
+  return fail(response, 500, 'Erreur interne, veuillez reessayer');
 });
