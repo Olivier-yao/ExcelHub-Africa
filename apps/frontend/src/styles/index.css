@@ -442,6 +442,27 @@ a {
   padding: 108px 0;
   margin: auto;
 }
+.catalogue-hero {
+  max-width: 1184px;
+  margin: auto;
+  padding: 64px 0 8px;
+}
+.catalogue-hero h1 {
+  max-width: 640px;
+  margin: 10px 0 16px;
+  color: #173d38;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 500;
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  line-height: 1.05;
+}
+.catalogue-lead {
+  max-width: 560px;
+  color: #58706b;
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+}
 .section-heading {
   display: flex;
   justify-content: space-between;
@@ -1014,6 +1035,55 @@ a {
   max-width: none;
   margin-top: 20px;
 }
+.mission-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.mission-grid h2 {
+  max-width: 480px;
+  margin: 6px 0 20px;
+  color: #173d38;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  line-height: 1.1;
+  font-weight: 500;
+}
+.mission-lead {
+  max-width: 480px;
+  color: #58706b;
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+}
+.mission-stats {
+  display: grid;
+  gap: 22px;
+  padding: 28px;
+  background: #f6f8f5;
+  border-radius: 16px;
+}
+.mission-stats div {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #e3e9e5;
+}
+.mission-stats div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.mission-stats strong {
+  color: #16815e;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 30px;
+}
+.mission-stats span {
+  color: #58706b;
+  font-size: 13px;
+}
 .steps {
   border-top: 1px solid #e0e8e2;
 }
@@ -1238,6 +1308,10 @@ footer p {
   .navbar {
     padding: 0 18px;
   }
+  .mission-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
   .hero {
     grid-template-columns: 1fr;
     padding: 55px 22px 52px;
@@ -1272,6 +1346,9 @@ footer p {
   }
   .section {
     padding: 76px 22px;
+  }
+  .catalogue-hero {
+    padding: 44px 22px 8px;
   }
   .section-heading {
     align-items: start;

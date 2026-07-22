@@ -32,7 +32,7 @@ export function ProductVariantsPage() {
         <div className="product-breadcrumb">
           <Link to="/">Accueil</Link>
           <span>/</span>
-          <Link to="/#catalogue">Catalogue</Link>
+          <Link to="/catalogue">Catalogue</Link>
           <span>/</span>
           <Link to={`/produits/${offer.slug}`}>{offer.name}</Link>
           <span>/</span>

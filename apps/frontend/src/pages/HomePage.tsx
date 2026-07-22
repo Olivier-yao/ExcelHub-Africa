@@ -1,39 +1,12 @@
-import { useMemo, useState } from 'react';
-import { AccountMenu } from '../components/AccountMenu';
+import { Link } from 'react-router-dom';
 import { ArrowIcon } from '../components/ArrowIcon';
-import { Logo } from '../components/Logo';
-import { OfferCard } from '../components/OfferCard';
+import { Navbar } from '../components/Navbar';
 import { SiteFooter } from '../components/SiteFooter';
-import { categories } from '../data/offers';
-import { useOffers } from '../hooks/useOffers';
 
 export function HomePage() {
-  const { data: offers } = useOffers();
-  const [activeCategory, setActiveCategory] = useState('Tous');
-  const displayedOffers = useMemo(
-    () =>
-      activeCategory === 'Tous'
-        ? offers
-        : offers.filter((offer) => offer.category === activeCategory),
-    [activeCategory, offers],
-  );
-
   return (
     <div className="site-shell">
-      <header className="navbar">
-        <Logo />
-        <nav aria-label="Navigation principale">
-          <a href="#catalogue">Catalogue</a>
-          <a href="#comment-ca-marche">Comment ça marche</a>
-          <a href="#pourquoi">Pourquoi nous</a>
-        </nav>
-        <div className="nav-actions">
-          <AccountMenu />
-          <a className="button button-small" href="#catalogue">
-            Explorer
-          </a>
-        </div>
-      </header>
+      <Navbar />
 
       <main>
         <section className="hero" aria-labelledby="hero-title">
@@ -49,9 +22,9 @@ export function HomePage() {
               votre business.
             </p>
             <div className="hero-actions">
-              <a className="button" href="#catalogue">
+              <Link className="button" to="/catalogue">
                 Explorer le catalogue <ArrowIcon />
-              </a>
+              </Link>
               <button className="watch-link" type="button">
                 <span className="play">▶</span> Voir comment ça marche
               </button>
@@ -152,42 +125,36 @@ export function HomePage() {
           </p>
         </section>
 
-        <section
-          className="catalogue section"
-          id="catalogue"
-          aria-labelledby="catalogue-title"
-        >
-          <div className="section-heading">
+        <section className="mission section" aria-labelledby="mission-title">
+          <div className="mission-grid">
             <div>
-              <p className="kicker">Nos solutions</p>
-              <h2 id="catalogue-title">Un outil pour chaque ambition.</h2>
+              <p className="kicker">Notre mission</p>
+              <h2 id="mission-title">
+                Donner aux PME africaines les outils des grandes entreprises.
+              </h2>
+              <p className="mission-lead">
+                ExcelHub Africa conçoit des fichiers Excel de gestion professionnels,
+                pensés pour la réalité du terrain : prix en FCFA, Mobile Money, langue
+                française, sans jargon ni logiciel compliqué. Notre objectif : permettre à
+                chaque commerçant, pharmacien ou gérant de restaurant de piloter son
+                activité comme un professionnel, en moins de 5 minutes et sans compétence
+                technique.
+              </p>
             </div>
-            <a href="#catalogue" className="text-link">
-              Voir tout le catalogue <ArrowIcon />
-            </a>
-          </div>
-          <div
-            className="category-tabs"
-            role="tablist"
-            aria-label="Filtrer les solutions"
-          >
-            {categories.map((category) => (
-              <button
-                key={category}
-                type="button"
-                role="tab"
-                aria-selected={activeCategory === category}
-                className={activeCategory === category ? 'active' : ''}
-                onClick={() => setActiveCategory(category)}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-          <div className="product-grid">
-            {displayedOffers.map((offer) => (
-              <OfferCard key={offer.slug} offer={offer} />
-            ))}
+            <div className="mission-stats">
+              <div>
+                <strong>6</strong>
+                <span>métiers couverts</span>
+              </div>
+              <div>
+                <strong>4</strong>
+                <span>opérateurs Mobile Money</span>
+              </div>
+              <div>
+                <strong>100%</strong>
+                <span>en français</span>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -228,9 +195,9 @@ export function HomePage() {
             <br />
             <em>Plus de contrôle.</em>
           </h2>
-          <a className="button button-light" href="#catalogue">
+          <Link className="button button-light" to="/catalogue">
             Trouver mon outil <ArrowIcon />
-          </a>
+          </Link>
         </section>
       </main>
       <SiteFooter />

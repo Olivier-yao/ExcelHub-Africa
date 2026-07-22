@@ -17,7 +17,7 @@ export function OfferDetailPage() {
     <div className="site-shell">
       <header className="navbar">
         <Logo />
-        <Link className="back-link" to="/#catalogue">
+        <Link className="back-link" to="/catalogue">
           ← Retour au catalogue
         </Link>
       </header>
@@ -25,7 +25,7 @@ export function OfferDetailPage() {
         <div className="product-breadcrumb">
           <Link to="/">Accueil</Link>
           <span>/</span>
-          <Link to="/#catalogue">Catalogue</Link>
+          <Link to="/catalogue">Catalogue</Link>
           <span>/</span>
           <b>{offer.name}</b>
         </div>
